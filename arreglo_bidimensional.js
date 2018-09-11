@@ -15,5 +15,9 @@ class Matrix {
 
   modify(row = 0, col = 0) {}
 
-  isNumber() {}
+  isNumber(...values) {
+    return Array.from(values).every(val => typeof val === 'number');
+  }
 }
+
+Matrix(1, 1);
