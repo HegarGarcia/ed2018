@@ -22,7 +22,8 @@
       "browser": true
     },
     "rules": {
-      "class-methods-use-this": "off"
+      "class-methods-use-this": "off",
+      "max-len": "off"
     }
   },
   "devDependencies": {
