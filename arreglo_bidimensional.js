@@ -1,7 +1,7 @@
 class Matrix {
   constructor(rows = 1, cols = 1) {
-    if (!this.isNumber(rows, cols)) {
-      throw new Error('Error en los argumentos');
+    if (Number.isNaN(rows) || Number.isNaN(cols) || +rows < 0 || +cols < 0) {
+      throw new Error('Argumentos no válidos');
     }
 
     this.rows = rows;
@@ -11,35 +11,63 @@ class Matrix {
 
   search(value = null) {
     const rowIndex = this.matrix.findIndex(row => row.includes(value));
+
+    if (rowIndex === -1) {
+      throw new Error('Valor no encontrado');
+    }
+
     const colIndex = this.matrix[rowIndex].findIndex(col => col === value);
 
     return { row: rowIndex, col: colIndex };
   }
 
-  insert({ row = 0, col = 0 } = {}, value = null) {
-    if (!this.isNumber(row, col)) {
-      throw new Error('Error en los argumentos');
+  insert({ row: rowIndex, col: colIndex, value = null } = {}) {
+    if (!value && !(value === 0)) {
+      throw new Error('No hay valor para insertar');
     }
 
-    if (this.rows < row || this.cols < col) {
-      throw new Error('Valores fuera del rango');
-    }
+    const validPosition = rowIndex >= 0
+      && colIndex >= 0
+      && this.isValidPosition({ row: rowIndex, col: colIndex });
 
-    if (this.matrix[row][col]) {
-      throw new Error('La celda contiene un valor');
-    }
+    if (validPosition) {
+      if (this.matrix[rowIndex][colIndex]) {
+        throw new Error('La celda contiene un valor');
+      }
 
-    this.matrix[row][col] = value;
+      this.matrix[rowIndex][colIndex] = value;
+    } else if (!validPosition && !rowIndex && !colIndex) {
+      const rowInsertionIndex = this.matrix.findIndex(row => row.some(val => !val));
+      const colInsertionIndex = rowInsertionIndex !== -1
+        && this.matrix[rowInsertionIndex].findIndex(col => !col);
+
+      if (!colInsertionIndex && colInsertionIndex !== 0) {
+        throw new Error('No hay espacio en la matriz');
+      }
+
+      this.matrix[rowInsertionIndex][colInsertionIndex] = value;
+    } else {
+      throw new Error('Parámetros no válidos');
+    }
 
     return this;
   }
 
-  delete({ row = 0, col = 0, value = null } = {}) {
-    if (value !== null) {
-      const { row: rowIndex, col: colIndex } = this.search(value);
+  delete({ row: rowIndex, col: colIndex, value } = {}) {
+    const validPosition = rowIndex >= 0
+      && colIndex >= 0
+      && this.isValidPosition({ row: rowIndex, col: colIndex });
+
+    if (validPosition) {
       this.matrix[rowIndex][colIndex] = null;
-    } else if (this.isNumber(row, col) && this.rows > row && this.cols > col) {
-      this.matrix[row][col] = null;
+    } else if (value || value >= 0) {
+      const { row: rowDeletionIndex, col: colDeletionIndex } = this.search(
+        value,
+      );
+
+      this.matrix[rowDeletionIndex][colDeletionIndex] = null;
+    } else {
+      throw new Error('Parámetros no válidos');
     }
 
     return this;
@@ -48,17 +76,39 @@ class Matrix {
   modify({
     row = 0, col = 0, oldValue = null, newValue = null,
   }) {
-    if (oldValue !== null) {
-      const { row: rowIndex, col: colIndex } = this.search(oldValue);
-      this.matrix[rowIndex][colIndex] = newValue;
-    } else if (this.isNumber(row, col) && this.rows > row && this.cols > col) {
-      this.matrix[row][col] = newValue;
+    if (!newValue && !(newValue === 0)) {
+      throw new Error('Argumentos no válidos');
+    }
+
+    const tempMatrix = Array.from(this.matrix);
+
+    try {
+      if (oldValue) {
+        const searchResult = this.search(oldValue);
+        this.delete({ value: oldValue });
+        this.insert({
+          row: searchResult.row,
+          col: searchResult.col,
+          value: newValue,
+        });
+      } else if (row >= 0 && col >= 0 && this.isValidPosition({ row, col })) {
+        this.delete({ row, col });
+        this.insert({ row, col, value: newValue });
+      } else {
+        throw new Error('Argumentos no válidos');
+      }
+    } catch (e) {
+      this.matrix = tempMatrix;
+      throw e;
     }
 
     return this;
   }
 
-  isNumber(...values) {
-    return Array.from(values).every(val => typeof val === 'number');
+  isValidPosition({ row, col }) {
+    const result = !(Number.isNaN(row) && Number.isNaN(col))
+      && (this.rows > +row && this.cols > +col);
+
+    return result;
   }
 }
