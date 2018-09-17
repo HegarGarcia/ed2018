@@ -1,11 +1,11 @@
 class Arreglo {
-  constructor({ length = 1, type = "number" }) {
+  constructor({ length = 1, type = 'number' }) {
     this.length = length;
     this.type = type;
     this.array = [];
   }
 
-  agregar(value = "") {
+  agregar(value = '') {
     // eslint-disable-next-line valid-typeof
     if (this.array.length < this.length && typeof value === this.type) {
       this.array.push(value);
@@ -16,11 +16,11 @@ class Arreglo {
     return this;
   }
 
-  eliminar(value = "") {
+  eliminar(value = '') {
     let { length } = this.array;
 
     if (length < 1) {
-      throw new Error("El arreglo está vacio");
+      throw new Error('El arreglo está vacio');
     }
 
     let i = 0;
@@ -48,11 +48,11 @@ class Arreglo {
     return this;
   }
 
-  modificar(oldValue = "", value = "") {
+  modificar(oldValue = '', value = '') {
     const { length } = this.array;
 
     if (length < 1) {
-      throw new Error("El arreglo está vacio");
+      throw new Error('El arreglo está vacio');
     }
 
     let i = 0;
