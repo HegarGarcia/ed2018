@@ -112,3 +112,5 @@ class Matrix {
     return result;
   }
 }
+
+module.export = Matrix;
