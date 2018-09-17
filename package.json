@@ -19,7 +19,8 @@
   "eslintConfig": {
     "extends": "airbnb",
     "env": {
-      "browser": true
+      "browser": true,
+      "node": true
     },
     "rules": {
       "class-methods-use-this": "off"
