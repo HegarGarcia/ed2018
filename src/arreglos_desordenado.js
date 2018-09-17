@@ -6,21 +6,21 @@ class Arreglo {
   }
 
   agregar(value = "") {
+    // eslint-disable-next-line valid-typeof
     if (this.array.length < this.length && typeof value === this.type) {
       this.array.push(value);
     } else {
-      console.log("El elemento 'Y' no puede insertarse");
+      throw new Error("El elemento 'Y' no puede insertarse");
     }
 
     return this;
   }
 
   eliminar(value = "") {
-    let length = this.array.length;
+    let { length } = this.array;
 
     if (length < 1) {
-      console.log("El arreglo está vacio");
-      return this;
+      throw new Error("El arreglo está vacio");
     }
 
     let i = 0;
@@ -29,31 +29,30 @@ class Arreglo {
     while (i <= length && flag === false) {
       if (this.array[i] === value) {
         flag = true;
-        length--;
+        length -= 1;
 
-        for (let k = i; k < length; k++) {
+        for (let k = i; k < length; k += 1) {
           this.array[k] = this.array[k + 1];
         }
 
-        this.array.length--;
+        this.array.length -= 1;
       } else {
-        i++;
+        i += 1;
       }
     }
 
     if (flag === false) {
-      console.log("El elemento 'X' no está en el arreglo");
+      throw new Error("El elemento 'X' no está en el arreglo");
     }
 
     return this;
   }
 
   modificar(oldValue = "", value = "") {
-    let length = this.array.length;
+    const { length } = this.array;
 
     if (length < 1) {
-      console.log("El arreglo está vacio");
-      return this;
+      throw new Error("El arreglo está vacio");
     }
 
     let i = 0;
@@ -64,14 +63,16 @@ class Arreglo {
         flag = true;
         this.array[i] = value;
       } else {
-        i++;
+        i += 1;
       }
     }
 
     if (flag === false) {
-      console.log("El elemento 'X' no está en el arreglo");
+      throw new Error("El elemento 'X' no está en el arreglo");
     }
 
     return this;
   }
 }
+
+module.exports = Arreglo;
