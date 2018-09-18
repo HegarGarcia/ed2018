@@ -26,9 +26,14 @@ class Matrix {
       throw new Error('No hay valor para insertar');
     }
 
-    const validPosition = rowIndex >= 0
-      && colIndex >= 0
+    const validPosition = rowIndex > 0
+      && colIndex > 0
       && this.isValidPosition({ row: rowIndex, col: colIndex });
+
+    /* eslint-disable */
+    rowIndex -= 1;
+    colIndex -= 1;
+    /* eslint-enable */
 
     if (validPosition) {
       if (this.matrix[rowIndex][colIndex]) {
@@ -54,12 +59,21 @@ class Matrix {
   }
 
   delete({ row: rowIndex, col: colIndex, value } = {}) {
-    const validPosition = rowIndex >= 0
-      && colIndex >= 0
+    const validPosition = rowIndex > 0
+      && colIndex > 0
       && this.isValidPosition({ row: rowIndex, col: colIndex });
 
+    /* eslint-disable */
+    rowIndex -= 1;
+    colIndex -= 1;
+    /* eslint-enable */
+
     if (validPosition) {
-      this.matrix[rowIndex][colIndex] = null;
+      if (this.matrix[rowIndex][colIndex]) {
+        this.matrix[rowIndex][colIndex] = null;
+      } else {
+        throw new Error('No hay valor en la celda');
+      }
     } else if (value || value >= 0) {
       const { row: rowDeletionIndex, col: colDeletionIndex } = this.search(
         value,
@@ -83,15 +97,15 @@ class Matrix {
     const tempMatrix = Array.from(this.matrix);
 
     try {
-      if (oldValue) {
+      if (oldValue || oldValue === 0) {
         const searchResult = this.search(oldValue);
         this.delete({ value: oldValue });
         this.insert({
-          row: searchResult.row,
-          col: searchResult.col,
+          row: searchResult.row + 1,
+          col: searchResult.col + 1,
           value: newValue,
         });
-      } else if (row >= 0 && col >= 0 && this.isValidPosition({ row, col })) {
+      } else if (row > 0 && col > 0 && this.isValidPosition({ row, col })) {
         this.delete({ row, col });
         this.insert({ row, col, value: newValue });
       } else {
@@ -107,7 +121,7 @@ class Matrix {
 
   isValidPosition({ row, col }) {
     const result = !(Number.isNaN(row) && Number.isNaN(col))
-      && (this.rows > +row && this.cols > +col);
+      && (this.rows > +row && +row > 0 && this.cols > +col && +col > 0);
 
     return result;
   }
