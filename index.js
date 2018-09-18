@@ -1,7 +1,7 @@
 const repl = require('repl');
-const Arreglo = require('./arreglos_desordenado');
-const ArregloOrdenado = require('./arreglo_ordenado');
-const Matrix = require('./arreglo_bidimensional');
+const Arreglo = require('./src/arreglos_desordenado');
+const ArregloOrdenado = require('./src/arreglo_ordenado');
+const Matrix = require('./src/arreglo_bidimensional');
 
 const replServer = repl.start({
   prompt: '$ ',
