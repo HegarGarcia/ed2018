@@ -1,7 +1,13 @@
 class Grades {
-  constructor() {}
+  constructor(grades = []) {
+    this.grades = grades;
+  }
 
-  average() {}
+  average() {
+    return (
+      this.grades.reduce((sum, grade) => sum + grade, 0) / this.grades.length
+    );
+  }
 
   getStatistics() {}
 }
