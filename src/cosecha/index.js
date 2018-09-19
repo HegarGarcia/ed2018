@@ -1,5 +1,5 @@
 class Cosecha {
-  constructor(data = []) {
+  constructor(data = Array(12)) {
     if (!Array.isArray(data)) {
       throw new Error('Argumento no es arreglo');
     }
