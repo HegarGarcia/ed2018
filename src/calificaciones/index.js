@@ -1,6 +1,12 @@
 class Grades {
   constructor(grades = []) {
-    this.grades = grades;
+    const valid = grades.every(grade => grade <= 10 && grade >= 0);
+
+    if (!valid) {
+      throw new Error('Calificaciones fuera del rango permitido');
+    }
+
+    this.grades = grades.filter(grade => grade || grade === 0);
   }
 
   average() {
@@ -9,7 +15,7 @@ class Grades {
     );
   }
 
-  filterStudentsGrades(callback, opc = null) {
+  filter(callback, opc = null) {
     const students = this.grades.filter(callback);
     const amount = opc === '%'
       ? (students.length / this.grades.length) * 100
@@ -19,15 +25,15 @@ class Grades {
   }
 
   getApprovedStudents(opc = null) {
-    return this.filterStudentsGrades(grade => grade > 6, opc);
+    return this.filter(grade => grade > 6, opc);
   }
 
   getFailedStudents(opc = null) {
-    return this.filterStudentsGrades(grade => grade < 6, opc);
+    return this.filter(grade => grade < 6, opc);
   }
 
   getGradesOver(baseGrade, opc = null) {
-    return this.filterStudentsGrades(grade => grade >= baseGrade, opc);
+    return this.filter(grade => grade >= baseGrade, opc);
   }
 }
 
