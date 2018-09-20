@@ -25,7 +25,7 @@ class Grades {
   }
 
   getApprovedStudents(opc = null) {
-    return this.filter(grade => grade > 6, opc);
+    return this.filter(grade => grade >= 6, opc);
   }
 
   getFailedStudents(opc = null) {
