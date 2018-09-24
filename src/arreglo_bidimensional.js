@@ -6,7 +6,9 @@ class Matrix {
 
     this.rows = rows;
     this.cols = cols;
-    this.matrix = Array.from({ length: rows }, () => Array.from({ length: cols }, () => null));
+    this.matrix = Array.from({ length: rows }, () =>
+      Array.from({ length: cols }, () => null)
+    );
   }
 
   search(value = null) {
@@ -26,14 +28,13 @@ class Matrix {
       throw new Error('No hay valor para insertar');
     }
 
-    const validPosition = rowIndex > 0
-      && colIndex > 0
-      && this.isValidPosition({ row: rowIndex, col: colIndex });
+    const validPosition =
+      rowIndex > 0 &&
+      colIndex > 0 &&
+      this.isValidPosition({ row: rowIndex, col: colIndex });
 
-    /* eslint-disable */
     rowIndex -= 1;
     colIndex -= 1;
-    /* eslint-enable */
 
     if (validPosition) {
       if (this.matrix[rowIndex][colIndex]) {
@@ -42,9 +43,12 @@ class Matrix {
 
       this.matrix[rowIndex][colIndex] = value;
     } else if (!validPosition && !rowIndex && !colIndex) {
-      const rowInsertionIndex = this.matrix.findIndex(row => row.some(val => !val));
-      const colInsertionIndex = rowInsertionIndex !== -1
-        && this.matrix[rowInsertionIndex].findIndex(col => !col);
+      const rowInsertionIndex = this.matrix.findIndex(row =>
+        row.some(val => !val)
+      );
+      const colInsertionIndex =
+        rowInsertionIndex !== -1 &&
+        this.matrix[rowInsertionIndex].findIndex(col => !col);
 
       if (!colInsertionIndex && colInsertionIndex !== 0) {
         throw new Error('No hay espacio en la matriz');
@@ -59,9 +63,10 @@ class Matrix {
   }
 
   delete({ row: rowIndex, col: colIndex, value } = {}) {
-    const validPosition = rowIndex > 0
-      && colIndex > 0
-      && this.isValidPosition({ row: rowIndex, col: colIndex });
+    const validPosition =
+      rowIndex > 0 &&
+      colIndex > 0 &&
+      this.isValidPosition({ row: rowIndex, col: colIndex });
 
     /* eslint-disable */
     rowIndex -= 1;
@@ -76,7 +81,7 @@ class Matrix {
       }
     } else if (value || value >= 0) {
       const { row: rowDeletionIndex, col: colDeletionIndex } = this.search(
-        value,
+        value
       );
 
       this.matrix[rowDeletionIndex][colDeletionIndex] = null;
@@ -87,9 +92,7 @@ class Matrix {
     return this;
   }
 
-  modify({
-    row = 0, col = 0, oldValue = null, newValue = null,
-  }) {
+  modify({ row = 0, col = 0, oldValue = null, newValue = null }) {
     if (!newValue && !(newValue === 0)) {
       throw new Error('Argumentos no válidos');
     }
@@ -103,7 +106,7 @@ class Matrix {
         this.insert({
           row: searchResult.row + 1,
           col: searchResult.col + 1,
-          value: newValue,
+          value: newValue
         });
       } else if (row > 0 && col > 0 && this.isValidPosition({ row, col })) {
         this.delete({ row, col });
@@ -120,8 +123,9 @@ class Matrix {
   }
 
   isValidPosition({ row, col }) {
-    const result = !(Number.isNaN(row) && Number.isNaN(col))
-      && (this.rows > +row && +row > 0 && this.cols > +col && +col > 0);
+    const result =
+      !(Number.isNaN(row) && Number.isNaN(col)) &&
+      (this.rows > +row && +row > 0 && this.cols > +col && +col > 0);
 
     return result;
   }
