@@ -1,3 +1,9 @@
+const { random } = require('faker');
+
+function mockData() {
+  return random.number({ min: 0, max: 100 });
+}
+
 class Matrix {
   constructor(rows = 1, cols = 1) {
     if (Number.isNaN(rows) || Number.isNaN(cols) || +rows < 0 || +cols < 0) {
@@ -6,7 +12,7 @@ class Matrix {
 
     this.rows = rows;
     this.cols = cols;
-    this.matrix = Array.from({ length: rows }, () => Array.from({ length: cols }, () => null));
+    this.matrix = Array.from({ length: rows }, () => Array.from({ length: cols }, mockData));
   }
 
   search(value = null) {
@@ -26,9 +32,8 @@ class Matrix {
       throw new Error('No hay valor para insertar');
     }
 
-    const validPosition = rowIndex > 0
-      && colIndex > 0
-      && this.isValidPosition({ row: rowIndex, col: colIndex });
+    const validPosition =
+      rowIndex > 0 && colIndex > 0 && this.isValidPosition({ row: rowIndex, col: colIndex });
 
     /* eslint-disable */
     rowIndex -= 1;
@@ -43,8 +48,8 @@ class Matrix {
       this.matrix[rowIndex][colIndex] = value;
     } else if (!validPosition && !rowIndex && !colIndex) {
       const rowInsertionIndex = this.matrix.findIndex(row => row.some(val => !val));
-      const colInsertionIndex = rowInsertionIndex !== -1
-        && this.matrix[rowInsertionIndex].findIndex(col => !col);
+      const colInsertionIndex =
+        rowInsertionIndex !== -1 && this.matrix[rowInsertionIndex].findIndex(col => !col);
 
       if (!colInsertionIndex && colInsertionIndex !== 0) {
         throw new Error('No hay espacio en la matriz');
@@ -59,9 +64,8 @@ class Matrix {
   }
 
   delete({ row: rowIndex, col: colIndex, value } = {}) {
-    const validPosition = rowIndex > 0
-      && colIndex > 0
-      && this.isValidPosition({ row: rowIndex, col: colIndex });
+    const validPosition =
+      rowIndex > 0 && colIndex > 0 && this.isValidPosition({ row: rowIndex, col: colIndex });
 
     /* eslint-disable */
     rowIndex -= 1;
@@ -75,9 +79,7 @@ class Matrix {
         throw new Error('No hay valor en la celda');
       }
     } else if (value || value >= 0) {
-      const { row: rowDeletionIndex, col: colDeletionIndex } = this.search(
-        value,
-      );
+      const { row: rowDeletionIndex, col: colDeletionIndex } = this.search(value);
 
       this.matrix[rowDeletionIndex][colDeletionIndex] = null;
     } else {
@@ -87,9 +89,7 @@ class Matrix {
     return this;
   }
 
-  modify({
-    row = 0, col = 0, oldValue = null, newValue = null,
-  }) {
+  modify({ row = 0, col = 0, oldValue = null, newValue = null }) {
     if (!newValue && !(newValue === 0)) {
       throw new Error('Argumentos no válidos');
     }
@@ -120,8 +120,9 @@ class Matrix {
   }
 
   isValidPosition({ row, col }) {
-    const result = !(Number.isNaN(row) && Number.isNaN(col))
-      && (this.rows > +row && +row > 0 && this.cols > +col && +col > 0);
+    const result =
+      !(Number.isNaN(row) && Number.isNaN(col)) &&
+      (this.rows > +row && +row > 0 && this.cols > +col && +col > 0);
 
     return result;
   }
