@@ -1,3 +1,4 @@
+const { mockArray } = require('../utils');
 const months = new Map([
   [0, 'enero'],
   [1, 'febrero'],
@@ -14,7 +15,7 @@ const months = new Map([
 ]);
 
 class Cosecha {
-  constructor(data = Array(12)) {
+  constructor(data = mockArray(12)) {
     if (!Array.isArray(data)) {
       throw new Error('Argumento no es arreglo');
     }
