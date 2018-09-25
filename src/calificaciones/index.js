@@ -1,5 +1,7 @@
+const { mockArray } = require('../utils');
+
 class Grades {
-  constructor(grades = []) {
+  constructor(grades = mockArray(10, { min: 0, max: 10 })) {
     const valid = grades.every(grade => grade <= 10 && grade >= 0);
 
     if (!valid) {
@@ -17,9 +19,10 @@ class Grades {
 
   filter(callback, opc = null) {
     const students = this.grades.filter(callback);
-    const amount = opc === '%'
-      ? (students.length / this.grades.length) * 100
-      : students.length;
+    const amount =
+      opc === '%'
+        ? (students.length / this.grades.length) * 100
+        : students.length;
 
     return { students, amount };
   }
