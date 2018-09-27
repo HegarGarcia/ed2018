@@ -5,9 +5,10 @@ const { Matrix } = require('./src/matrix');
 const Cosecha = require('./src/cosecha');
 const Grades = require('./src/calificaciones');
 const Costs = require('./src/production_costs');
+const Stack = require('./src/stacks');
 
 const replServer = repl.start({
-  prompt: '$ ',
+  prompt: '$ '
 });
 
 replServer.context.Matrix = Matrix;
@@ -16,3 +17,4 @@ replServer.context.ArregloOrdenado = ArregloOrdenado;
 replServer.context.Cosecha = Cosecha;
 replServer.context.Grades = Grades;
 replServer.context.Costs = Costs;
+replServer.context.Stack = Stack;
