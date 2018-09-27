@@ -10,8 +10,8 @@ class Stack {
     this.stack = [];
   }
 
-  push(value) {
-    if (typeof value === this.type) {
+  push(value = '') {
+    if (typeof value !== this.type) {
       throw new Error(`Type of value not valid, should be: ${this.type}`);
     }
 
