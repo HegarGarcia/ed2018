@@ -6,7 +6,7 @@ const Cosecha = require('./src/cosecha');
 const Grades = require('./src/calificaciones');
 const Costs = require('./src/production_costs');
 const Stack = require('./src/stacks');
-const { toPostfix } = require('./src/math');
+const math = require('./src/math');
 
 const replServer = repl.start({
   prompt: '$ '
@@ -19,4 +19,4 @@ replServer.context.Cosecha = Cosecha;
 replServer.context.Grades = Grades;
 replServer.context.Costs = Costs;
 replServer.context.Stack = Stack;
-replServer.context.toPostfix = toPostfix;
+replServer.context.math = math;
