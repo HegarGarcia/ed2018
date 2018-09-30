@@ -1,0 +1,24 @@
+const operators = ['+', '-', '/', '*', '^'];
+const operatorsPriority = {
+  '+': 1,
+  '-': 1,
+  '*': 2,
+  '/': 2,
+  '^': 3
+};
+
+function getPriority(base = '', operator = '') {
+  const basePriority = operatorsPriority[base];
+  const priority = operatorsPriority[operator];
+
+  if (basePriority === -1 || priority === -1) {
+    throw new Error("Operator(s) doesn't exist");
+  }
+
+  return priority > basePriority ? '>' : priority === basePriority ? '=' : '<';
+}
+
+module.exports = {
+  operators,
+  getPriority
+};
