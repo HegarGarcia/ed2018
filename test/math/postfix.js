@@ -3,7 +3,7 @@ const { toPostfix } = require('../../src/math');
 
 describe('Postfix', () => {
   it("Convert expression  'X + Z * W' to postfix", () => {
-    const expression = toPostfix(' X + Z * W');
+    const expression = toPostfix('X + Z * W');
     assert.equal(expression, 'XZW*+');
   });
 
