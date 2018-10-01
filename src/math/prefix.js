@@ -1,5 +1,6 @@
 const Stack = require('../stacks');
-const { operators, getPriority } = require('./lib');
+const { operators, getPriority, isPostfix, isPrefix } = require('./lib');
+const { toInfix } = require('./infix');
 
 function toPrefix(expression = '') {
   expression = [...expression.replace(/\s/g, '')].reverse().join('');
@@ -9,6 +10,15 @@ function toPrefix(expression = '') {
   if (!validExpression) {
     throw new Error('Expression invalid');
   }
+
+  const postfix = isPostfix(expression);
+  const prefix = isPrefix(expression);
+
+  if (prefix) {
+    return expression;
+  }
+
+  expression = postfix ? toInfix(expression) : expression;
 
   const expressionLength = expression.length;
   const expressionStack = new Stack(expressionLength, 'string');
