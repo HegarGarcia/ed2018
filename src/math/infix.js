@@ -1,5 +1,10 @@
 const Stack = require('../stacks');
 
+/**
+ * Converts Expression to Infix Notations
+ * @param {string} expression
+ * @returns {string} Expression in infix notation
+ */
 function toInfix(expression = '') {
   expression = expression.replace(/\s/g, '');
   const validExpression =

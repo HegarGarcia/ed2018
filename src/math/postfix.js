@@ -2,6 +2,11 @@ const Stack = require('../stacks');
 const { operators, getPriority, isPostfix, isPrefix } = require('./lib');
 const { toInfix } = require('./infix');
 
+/**
+ * Converts Expression to Postfix Notations
+ * @param {string} expression
+ * @returns {string} Expression in postfix notation
+ */
 function toPostfix(expression = '') {
   expression = expression.replace(/\s/g, '');
   const validExpression =
