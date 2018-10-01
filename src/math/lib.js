@@ -18,7 +18,15 @@ function getPriority(base = '', operator = '') {
   return priority > basePriority ? '>' : priority === basePriority ? '=' : '<';
 }
 
+const isPrefix = expression =>
+  expression.replace(/\(/g, '').match(/^(\+|-|\*|\\)+?/);
+
+const isPostfix = expression =>
+  expression.replace(/\)/g, '').match(/(\+|-|\*|\\)+?$/);
+
 module.exports = {
   operators,
-  getPriority
+  getPriority,
+  isPostfix,
+  isPrefix
 };
