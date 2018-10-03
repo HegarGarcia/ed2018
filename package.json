@@ -1,0 +1,19 @@
+{
+  "name": "ed2018",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start:repl": "cd lib && npm start",
+    "start:frontend": "cd front-end && npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HegarGarcia/ED2018.git"
+  },
+  "author": "Hegar Garcia",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HegarGarcia/ED2018/issues"
+  },
+  "homepage": "https://github.com/HegarGarcia/ED2018#readme"
+}
