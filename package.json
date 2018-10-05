@@ -1,28 +1,19 @@
 {
-  "name": "ed",
+  "name": "ed2018",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
-    "start": "node ./index.js",
-    "debug": "node --nolazy --inspect-brk=9229 ./index.js",
-    "test": "mocha --recursive"
+    "start:repl": "cd lib && npm start",
+    "start:frontend": "cd front-end && npm start"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/HegarGarcia/ED2018.git"
   },
-  "author": "",
+  "author": "Hegar Garcia",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/HegarGarcia/ED2018/issues"
   },
-  "homepage": "https://github.com/HegarGarcia/ED2018#readme",
-  "devDependencies": {
-    "eslint": "^5.6.0",
-    "eslint-config-recommended": "^3.0.0"
-  },
-  "dependencies": {
-    "faker": "^4.1.0"
-  }
+  "homepage": "https://github.com/HegarGarcia/ED2018#readme"
 }
