@@ -7,6 +7,13 @@ class App extends Component {
     return (
       <div id="App">
         <Math />
+        <a
+          href="https://github.com/HegarGarcia/ED2018"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Github
+        </a>
       </div>
     );
   }
