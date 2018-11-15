@@ -7,11 +7,11 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "NodeJS",
-      "console": "integratedTerminal",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run-script", "debug"],
-      "port": 9229
+      "name": "nodemon",
+      "runtimeExecutable": "nodemon",
+      "program": "${workspaceFolder}/lib/index.js",
+      "restart": true,
+      "console": "integratedTerminal"
     }
   ]
 }

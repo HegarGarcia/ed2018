@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start:repl": "cd lib && npm start",
+    "start:repl": "cd lib && nodemon start",
     "start:frontend": "cd front-end && npm start",
     "deploy": "cd front-end && npm run build && cd .. && firebase deploy --only hosting"
   },

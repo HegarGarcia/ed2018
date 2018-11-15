@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./index.js",
-    "debug": "node --nolazy --inspect-brk=9229 ./index.js",
+    "debug": "nodemon --inspect",
     "test": "mocha --recursive"
   },
   "repository": {
@@ -24,6 +24,7 @@
     "mocha": "^5.2.0"
   },
   "dependencies": {
+    "cli-table": "^0.3.1",
     "faker": "^4.1.0"
   }
 }
