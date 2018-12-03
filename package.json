@@ -5,6 +5,7 @@
   "scripts": {
     "start:repl": "cd lib && npm start",
     "start:frontend": "cd front-end && npm start",
+    "debug": "cd lib && npm run debug",
     "deploy": "cd front-end && npm run build && cd .. && firebase deploy --only hosting"
   },
   "repository": {
