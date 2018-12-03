@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/HegarGarcia/ED2018/issues"
   },
-  "homepage": "https://github.com/HegarGarcia/ED2018#readme"
+  "homepage": "https://github.com/HegarGarcia/ED2018#readme",
+  "dependencies": {
+    "inquirer": "^6.2.1"
+  }
 }
