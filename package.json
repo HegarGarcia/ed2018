@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/HegarGarcia/ED2018#readme",
   "dependencies": {
-    "inquirer": "^6.2.1"
+    "inquirer": "^6.2.1",
+    "nodemon": "^1.18.7"
   }
 }
